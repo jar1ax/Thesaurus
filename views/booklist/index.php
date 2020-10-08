@@ -2,19 +2,20 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\widgets\DetailView;
-use app\models\Booklist;
 use yii\helpers\Url;
-use app\models\BooklistSearch;
-//use app\models\Authors;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\BooklistSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $model app\models\Booklist */
+
 $this->title = 'Книги';
 $this->params['breadcrumbs'][] = $this->title;
-//Пагинация
+
+/**Пагинация
+ *
+ */
+
 $searchModel = new \app\models\BooklistSearch();
 
 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -29,25 +30,14 @@ $dataProvider->pagination->pageSize=15;
     </table>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+<!--    --><?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'rowOptions'   => function ($model) {
-        return ['data-id' => $model->id,
-                'author-id'=>$model->author_id,
-                ];
-        },
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-//            'id',
-//            ['attribute'=>'posts.book_id',
-//                'format'=>'raw',
-//                'value'=>'posts.',
-//                'label'=>'Авторыкек'
-//            ],
             [
                 'format' => 'html',
                 'header' => 'Изображение',
@@ -55,6 +45,7 @@ $dataProvider->pagination->pageSize=15;
                     return Html::img($data->getImage(),['width' => 200,'height'=>'']);
                 }
             ],
+
             [
                 'attribute'=>'name',
                 'label'=>'Название',
@@ -62,8 +53,7 @@ $dataProvider->pagination->pageSize=15;
                         'style'=> 'width:150px; white-space: normal;'
                 ]
             ],
-//            'image',
-           // 'description:ntext',
+
             [
                 'attribute'=>'description',
                 'label'=>'Описание',
@@ -74,25 +64,26 @@ $dataProvider->pagination->pageSize=15;
 
             ],
 
-//            'authors_id',
-//            [
-//                'attribute'=>'authors.first_name',
-//                'format'=>'raw',
-//                'label'=>'Автор',
-//            ],
             [
-                'attribute'=>'author_id',
-                'format'=>'raw',
-                'label'=>'Автор',
-//                'value'=>'fullName'
-                //Что бы работали ссылки нужно сначала включить URLManager в конфиге  что бы включить ЧПУ
-                'value' => function ($model) {
-                    //Для ЧПУ
-//                    return Html::a(Html::encode($model->fullName),'/authors/view'.'?id='.$model->author_id);
-                    //Без ЧПУ
-                    return Html::a(Html::encode($model->fullName),'index.php?r=authors/view'.'&id='.$model->author_id);
+                'attribute'=>'authors',
+                'format'=>'html',
+
+                'filter'=> true,
+                'contentOptions'=>[
+                    'style'=>'text:ntext; white-space: normal;'],
+                'value'=>  function($data) {
+                    $str ='';
+                    foreach($data['authors'] as $author)
+                    {
+
+                        $str.=Html::a(Html::encode( $author['fullName'].' '),'index.php?r=authors/view'.'&id='.$author['id']). '<br/>';
+
+                    }
+                    return  $str;
                 },
             ],
+
+
 
             [
                    'attribute'=>'date',
@@ -100,32 +91,12 @@ $dataProvider->pagination->pageSize=15;
                 'contentOptions' => ['style' => 'width:100px; white-space: normal;'],
 
             ],
-
-//            [
-//
-//                    'attribute'=>'fullName',
-//                    'format'=>'raw',
-//                    'label'=>'Author(Ссылка из виджета)',
-//                     //Что бы работали ссылки нужно сначала включить URLManager в конфиге  что бы включить ЧПУ
-//                    'value' => function ($model) {
-//                    //Для ЧПУ
-////                    return Html::a(Html::encode($model->fullName),'/authors/view'.'?id='.$model->author_id);
-//                    //Без ЧПУ
-//                    return Html::a(Html::encode($model->fullName),'index.php?r=authors/view'.'&id='.$model->author_id);
-//                    },
-//
-//
-//                    //Html::a('kek',['authors/view','id'=>$model->author_id],['class' => 'btn btn-primary']),
-//
-//            ],
-
-
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]);
 
     //При нажатии на строку переходит во вью книги по ID книги в этой строке
-
+//
 //    $this->registerJs("
 //
 //    $('td').click(function (e) {

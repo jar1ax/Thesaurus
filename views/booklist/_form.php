@@ -14,16 +14,13 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'name')->textInput(['maxlength' => true]) ?>
 
-<!--    --><?//= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'author_id')->textInput() ?>
 
-<!--    --><?//= $form->field($model, 'authors.first_name')->textInput() ?>
+    <?= $form->field($model, 'editableAuthors')->dropDownList(\app\models\Authors::getList(), ['multiple' => true]) ?>
 
 
-<!--    --><?//= $form->field($model, 'date')->textInput() ?>
 
     <div class="form-group"><table>
       <td>  <?= Html::submitButton('Save', ['class' => 'btn btn-grad']) ?></td>

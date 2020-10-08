@@ -4,9 +4,7 @@ namespace app\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Booklist;
-use app\models\AuthorsSearch;
-use yii\debug\models\search\Debug;
+
 
 /**
  * BooklistSearch represents the model behind the search form of `app\models\Booklist`.
@@ -16,13 +14,13 @@ class BooklistSearch extends Booklist
     /**
      * {@inheritdoc}
      */
-    public $fullName;
+    public $last_name;
+    public $authors;
     public function rules()
     {
         return [
-            [['id', 'author_id'], 'integer'],
-            [['name', 'image', 'description', 'date'], 'safe'],
-            [['fullName'],'safe'],
+            [['id'], 'integer'],
+            [['name', 'image', 'description', 'date','last_name','authors'], 'safe'],
         ];
     }
 
@@ -44,8 +42,7 @@ class BooklistSearch extends Booklist
      */
     public function search($params)
     {
-        $query = Booklist::find();
-//        $query->joinWith('author_id');
+        $query = Booklist::find()->JoinWith('authors');
 
         // add conditions that should always apply here
 
@@ -54,26 +51,32 @@ class BooklistSearch extends Booklist
             'sort'=>[
                 'attributes'=>[
                     'name',
-                    'author_id',
+                    'authors' => [
+                            'asc' => ['authors.last_name' => SORT_ASC],
+                            'desc' => ['authors.last_name' => SORT_DESC],
+                            'default' => SORT_ASC
+                    ],
                 ],
-                'defaultOrder'=>['name'=>SORT_ASC]
+                'defaultOrder'=>[
+                    'name'=>SORT_ASC,
+                ]
         ]]);
 
         if (!($this->load($params)&& $this->validate())) {
             // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
-            $query->joinWith['authors'];
+//             $query->where('0=1');
             return $dataProvider;
         }
 
         $query->andFilterWhere([
             'id' => $this->id,
-            'author_id' => $this->author_id,
             'date' => $this->date,
         ]);
 
         $query->andFilterWhere(['like', 'name', $this->name])
-            ->andFilterWhere(['like', 'description', $this->description]);
+            ->andFilterWhere(['like', 'description', $this->description])
+            ->andFilterWhere(['like','authors.last_name',$this->authors]);
+
 
         return $dataProvider;
     }

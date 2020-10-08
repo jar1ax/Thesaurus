@@ -9,7 +9,6 @@ use app\models\BooklistSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\models\Authors;
 use yii\web\UploadedFile;
 
 /**
@@ -107,24 +106,15 @@ class BooklistController extends Controller
      */
     public function actionUpdate($id)
     {
-        $author= Authors::findOne($id);
+
         $model = $this->findModel($id);
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
         return $this->redirect(['view', 'id' => $model->id]);
     }
-//        if ($model->load(Yii::$app->request->post()) && $author->load(Yii::$app->request->post())) {
-//            $isValid = $model->validate();
-//            $isValid = $author->validate() && $isValid;
-//            if ($isValid) {
-//                $model->save(false);
-//                $author->save(false);
-//                return $this->redirect(['view', 'id' => $model->id]);
-//            }
-//        }
+
 
         return $this->render('update', [
             'model' => $model,
-//            'author'=>$author,
         ]);
     }
 

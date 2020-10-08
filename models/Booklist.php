@@ -3,6 +3,7 @@
 namespace app\models;
 
 use app\models\Authors;
+use arogachev\ManyToMany\behaviors\ManyToManyBehavior;// php composer.phar require --prefer-dist arogachev/yii2-many-to-many
 use Yii;
 use yii\web\UploadedFile;
 use app\models\ImageUpload;
@@ -21,6 +22,7 @@ use app\models\ImageUpload;
  */
 class Booklist extends \yii\db\ActiveRecord
 {
+    public $editableAuthors = [];
     /**
      * {@inheritdoc}
      */
@@ -29,6 +31,24 @@ class Booklist extends \yii\db\ActiveRecord
         return 'book';
     }
 
+    public function behaviors()
+    {
+        return [
+            [
+                'class' => ManyToManyBehavior::className(),
+
+                'relations' => [
+                    [
+                        'editableAttribute' => 'editableAuthors', // Editable attribute name
+                        'table' => 'book_has_authors', // Name of the junction table
+                        'ownAttribute' => 'book_id', // Name of the column in junction table that represents current model
+                        'relatedModel' => Authors::className(), // Related model class
+                        'relatedAttribute' => 'authors_id', // Name of the column in junction table that represents related model
+                    ],
+                ],
+            ],
+        ];
+    }
     /**
      * {@inheritdoc}
      */
@@ -36,9 +56,8 @@ class Booklist extends \yii\db\ActiveRecord
     {
         return [
             [['description'], 'string'],
-            [['author_id'], 'required'],
-            [['author_id'], 'integer'],
             [['date'], 'safe'],
+            [['editableAuthors'],'safe'],
             [['name', 'image'], 'string', 'max' => 255],
         ];
     }
@@ -53,10 +72,18 @@ class Booklist extends \yii\db\ActiveRecord
             'name' => 'Название',
             'image' => 'Image',
             'description' => 'Описание',
-            'author_id' => 'Автор',
             'date' => 'Дата публикации',
-            'fullName'=>'Author(Геттер)'
         ];
+    }
+    /**
+     * Gets query for [[Authors]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAuthors()
+    {
+        return $this->hasMany(Authors::className(), ['id' => 'authors_id'])->viaTable('book_has_authors',
+            ['book_id' => 'id'])->orderBy('last_name');
     }
     /**
      * {@SetImage}
@@ -82,21 +109,7 @@ class Booklist extends \yii\db\ActiveRecord
         return $this->renderAjax('image',['model'=>$model]);
     }
 
-    /**
-     * Gets query for [[Authors]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getAuthors()
-    {
-        return $this->hasOne(Authors::className(), ['id' => 'author_id']);
-    }
 
-    public function getPosts()
-    {
-        return $this->hasMany(Authors::className(), ['id' => 'book_id'])
-            ->viaTable('posts', ['author_id' => 'id']);
-    }
 
         /**
      * Gets query for [[fullName of Authors]].

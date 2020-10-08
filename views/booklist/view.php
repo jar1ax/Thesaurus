@@ -9,7 +9,7 @@ use yii\bootstrap\Modal;
 /* @var $model app\models\Booklist */
 
 $this->title = $model->name;
-$this->params['breadcrumbs'][] = ['label' => 'Booklists', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Книги', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 \yii\web\YiiAsset::register($this);
 ?>
@@ -44,8 +44,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= DetailView::widget([
         'model' => $model,
-//        'showHeader'=>false,
-//        'label'=>'false',
+
         'attributes' => [
             [
                 'attribute'=>'image',
@@ -53,39 +52,36 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label'=>false,
                 'showHeader'=>false,
                 'header' => 'Изображение',
-//                'style'=>'color:red',
-//                'htmlOptions'=>['font-color:red'],
                 'value'=> function($data){
                     return Html::img($data->getImage(),['width' => 200,'height'=>'']);
                 }
             ],
             'id',
             'name',
-//            'image',
             'description:ntext',
-//            'author_id',
-            'date',
             [
-                'attribute'=>'author_id',
-                'format'=>'raw',
-//                'value'=>'fullName'
-                //Что бы работали ссылки нужно сначала включить URLManager в конфиге  что бы включить ЧПУ
-                'value' => function ($model) {
-                    //Для ЧПУ
-//                    return Html::a(Html::encode($model->fullName),'/authors/view'.'?id='.$model->author_id);
-                    //Без ЧПУ
-                    return Html::a(Html::encode($model->fullName),'index.php?r=authors/view'.'&id='.$model->author_id);
+                'attribute'=>'authors',
+                'format'=>'html',
+
+                'filter'=> true,
+                'contentOptions'=>[
+                    'style'=>'text:ntext; white-space: normal;'
+                ],
+                'value'=>  function($data) {
+
+                    $str ='';
+                    foreach($data['authors'] as $author)
+                    {
+
+
+                        $str.=Html::a(Html::encode( $author['fullName'].' '),'index.php?r=authors/view'.'&id='.$author['id']). '<br/>';
+
+                    }
+                    return  $str;
                 },
             ],
-//
-//            [
-//                    'attribute'=>'fullName',
-//                    'format'=>'html',
-//                    'label'=>'Author(Ссылка из виджета)',
-//                    'value'=> Html::a($model->getFullName(),['/authors/view','id'=>$model->author_id]),
-//                    //Html::a('kek',['authors/view','id'=>$model->author_id],['class' => 'btn btn-primary']),
-//
-//            ]
+            'date',
+
         ],
     ]) ?>
 

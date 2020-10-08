@@ -4,6 +4,7 @@ namespace app\models;
 
 use SebastianBergmann\Comparator\Book;
 use Yii;
+use yii\helpers\ArrayHelper;
 
 /**
  * This is the model class for table "authors".
@@ -45,17 +46,15 @@ class Authors extends \yii\db\ActiveRecord
             'first_name' => 'Имя',
             'second_name' => 'Отчество',
             'last_name' => 'Фамилия',
-            'fullName'=>'Full Name'
         ];
     }
     public function getFullName(){
         return $this->first_name . ' ' . $this->second_name .' ' . $this->last_name;
     }
-    public function getBooks(){
-        return $this->hasMany(Authors::className(),['book_id'=>'id']);
-    }
+    public static function getList()
+    {
+        $models = static::find()->orderBy('last_name')->all();
 
-    public function getBookName(){
-        return $book_name=Authors::find()->joinWith(['book_list'])->where(['author_id'=>'id']);
+        return ArrayHelper::map($models, 'id', 'last_name');
     }
 }

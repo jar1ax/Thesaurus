@@ -46,7 +46,6 @@ AppAsset::register($this);
             ['label' => 'ГЛАВНАЯ', 'url' => ['/site/index']],
             ['label' => 'О НАС', 'url' => ['/site/about']],
             ['label' => 'КОНТАКТЫ', 'url' => ['/site/contact']],
-            ['label' => 'CRUD', 'url' => ['/books']],
             ['label' => 'КНИГИ', 'url' => ['/booklist']],
             ['label' => 'АВТОРЫ', 'url' => ['/authors']],
 

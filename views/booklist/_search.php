@@ -25,7 +25,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'author_id') ?>
 
-    <?php // echo $form->field($model, 'date') ?>
 
     <div class="form-group">
         <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
