@@ -1,5 +1,6 @@
 <?php
 
+use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
@@ -23,7 +24,26 @@ $dataProvider->pagination->pageSize=15;
 
     <p>
     <table>
-        <td><?= Html::a('Добавить автора', ['create'], ['class' => 'btn btn-grad']) ?></td>
+        <!--        Без ЧПУ-->
+
+                <td> <?= Html::button('Добавить автора', ['value'=>Url::to('index.php?r=authors/create'),
+                        'class' => 'btn btn-grad','id'=>'modalButton']) ?></td>
+
+        <!--        Для ЧПУ-->
+
+<!--        <td> --><?//= Html::button('Добавить автора', ['value'=>Url::to('authors/create'),
+//                'class' => 'btn btn-grad','id'=>'modalButton']) ?><!--</td>-->
+    </table>
+    </p>
+    <?php
+    Modal::begin([
+        'header'=>'<h4>Добавить книгу</h4>',
+        'id'=>'modal',
+        'size'=>'modal-lg',
+    ]);
+    echo "<div id='modalContent'></div>";
+    Modal::end();
+    ?>
     </table>
     </p>
 

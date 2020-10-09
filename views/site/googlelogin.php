@@ -1,2 +1,0 @@
-<?php
-echo 'google login';

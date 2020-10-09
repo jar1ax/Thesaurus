@@ -1,5 +1,6 @@
 <?php
 
+use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
@@ -26,9 +27,26 @@ $dataProvider->pagination->pageSize=15;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p><table>
-     <td>  <?= Html::a('Добавить книгу', ['create'], ['class' => 'btn btn-grad']) ?></td>
+<!--        Без ЧПУ-->
+
+        <td> <?= Html::button('Добавить книгу', ['value'=>Url::to('index.php?r=booklist/create'),
+                'class' => 'btn btn-grad','id'=>'modalButton']) ?></td>
+
+<!--        Для ЧПУ-->
+
+<!--        <td> --><?//= Html::button('Добавить книгу', ['value'=>Url::to('booklist/create'),
+//                'class' => 'btn btn-grad','id'=>'modalButton']) ?><!--</td>-->
     </table>
     </p>
+    <?php
+    Modal::begin([
+        'header'=>'<h4>Добавить книгу</h4>',
+        'id'=>'modal',
+        'size'=>'modal-lg',
+    ]);
+    echo "<div id='modalContent'></div>";
+    Modal::end();
+    ?>
 
 <!--    --><?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
@@ -102,11 +120,11 @@ $dataProvider->pagination->pageSize=15;
 //    $('td').click(function (e) {
 //        var id = $(this).closest('tr').data('id');
 //        if(e.target == this)
-//            location.href = '" . Url::to(['booklist/view']) . "?id=' + id;
+//            location.href = '" . Url::to(['booklist/view']) . "&id=' + id;
 //
 //    });
 //
-//");
+////");
     ?>
 
 

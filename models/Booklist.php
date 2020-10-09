@@ -73,6 +73,7 @@ class Booklist extends \yii\db\ActiveRecord
             'image' => 'Image',
             'description' => 'Описание',
             'date' => 'Дата публикации',
+            'editableAuthors'=>'Автор(ы)',
         ];
     }
     /**
@@ -83,7 +84,9 @@ class Booklist extends \yii\db\ActiveRecord
     public function getAuthors()
     {
         return $this->hasMany(Authors::className(), ['id' => 'authors_id'])->viaTable('book_has_authors',
-            ['book_id' => 'id'])->orderBy('last_name');
+            ['book_id' => 'id']);
+//        ->groupBy('last_name')
+//            ->orderBy('authors.last_name');
     }
     /**
      * {@SetImage}

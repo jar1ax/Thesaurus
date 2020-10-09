@@ -1,6 +1,8 @@
 <?php
 
 use app\models\Booklist;
+use yii\helpers\Url;
+use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -17,7 +19,20 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p><table>
-      <td> <?= Html::a('Обновить', ['update', 'id' => $model->id], ['class' => 'btn btn-grad']) ?></td>
+                    <td> <?= Html::button('Обновить', ['value'=>Url::to('index.php?r=authors/update' . '&id=' . $model->id),
+                            'class' => 'btn btn-grad','id'=>'modalUpdateButton']) ?></td>
+        <!--            Для ЧПУ -->
+<!--        <td> --><?//= Html::button('Обновить', ['value'=>Url::to('update' . '?id=' . $model->id),
+//                'class' => 'btn btn-grad','id'=>'modalUpdateButton']) ?><!--</td>-->
+        <?php
+        Modal::begin([
+            'header'=>'<h4>Обновить</h4>',
+            'id'=>'modal_update',
+            'size'=>'modal-lg',
+        ]);
+        echo "<div id='modalUpdate'></div>";
+        Modal::end();
+        ?>
         <td>  <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-grad',
             'data' => [
@@ -29,22 +44,12 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>
 
     <?= DetailView::widget([
-//        'dataProvider' => $dataProvider,
         'model' => $model,
         'attributes' => [
             'id',
             'first_name',
             'second_name',
             'last_name',
-//            [
-//                    'attribute'=>'book_id',
-//                    'label'=>'Книги',
-//                    'format'=>'raw',
-//                    'content'=>function($model){
-//                    return $model->getBooks();
-//                    }
-//            ],
-
         ],
     ]) ?>
 

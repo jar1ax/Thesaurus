@@ -15,15 +15,15 @@ use yii\widgets\ActiveForm;
         'method' => 'get',
     ]); ?>
 
-    <?= $form->field($model, 'id') ?>
+<!--    --><?//= $form->field($model, 'id') ?>
 
     <?= $form->field($model, 'name') ?>
 
-    <?= $form->field($model, 'image') ?>
+<!--    --><?//= $form->field($model, 'image') ?>
 
     <?= $form->field($model, 'description') ?>
 
-    <?= $form->field($model, 'author_id') ?>
+<!--    --><?//= $form->field($model, 'author_id') ?>
 
 
     <div class="form-group">
