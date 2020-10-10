@@ -55,6 +55,7 @@ class Booklist extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
+            [['name'],'required'],
             [['description'], 'string'],
             [['date'], 'safe'],
             [['editableAuthors'],'safe'],
@@ -85,8 +86,8 @@ class Booklist extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Authors::className(), ['id' => 'authors_id'])->viaTable('book_has_authors',
             ['book_id' => 'id']);
-//        ->groupBy('last_name')
-//            ->orderBy('authors.last_name');
+
+
     }
     /**
      * {@SetImage}

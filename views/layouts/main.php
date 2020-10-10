@@ -44,24 +44,24 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => 'ГЛАВНАЯ', 'url' => ['/site/index']],
-            ['label' => 'О НАС', 'url' => ['/site/about']],
-            ['label' => 'КОНТАКТЫ', 'url' => ['/site/contact']],
+//            ['label' => 'О НАС', 'url' => ['/site/about']],
+//            ['label' => 'КОНТАКТЫ', 'url' => ['/site/contact']],
             ['label' => 'КНИГИ', 'url' => ['/booklist']],
             ['label' => 'АВТОРЫ', 'url' => ['/authors']],
 
 
-            Yii::$app->user->isGuest ? (
-                ['label' => 'ВОЙТИ', 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'ВЫЙТИ (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
+//            Yii::$app->user->isGuest ? (
+//                ['label' => 'ВОЙТИ', 'url' => ['/site/login']]
+//            ) : (
+//                '<li>'
+//                . Html::beginForm(['/site/logout'], 'post')
+//                . Html::submitButton(
+//                    'ВЫЙТИ (' . Yii::$app->user->identity->username . ')',
+//                    ['class' => 'btn btn-link logout']
+//                )
+//                . Html::endForm()
+//                . '</li>'
+//            )
         ],
     ]);
     NavBar::end();

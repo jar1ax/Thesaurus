@@ -55,6 +55,6 @@ class Authors extends \yii\db\ActiveRecord
     {
         $models = static::find()->orderBy('last_name')->all();
 
-        return ArrayHelper::map($models, 'id', 'last_name');
+        return ArrayHelper::map($models, 'id', 'FullName');
     }
 }

@@ -16,7 +16,6 @@ $this->params['breadcrumbs'][] = $this->title;
 /**Пагинация
  *
  */
-
 $searchModel = new \app\models\BooklistSearch();
 
 $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
@@ -113,18 +112,9 @@ $dataProvider->pagination->pageSize=15;
         ],
     ]);
 
-    //При нажатии на строку переходит во вью книги по ID книги в этой строке
-//
-//    $this->registerJs("
-//
-//    $('td').click(function (e) {
-//        var id = $(this).closest('tr').data('id');
-//        if(e.target == this)
-//            location.href = '" . Url::to(['booklist/view']) . "&id=' + id;
-//
-//    });
-//
-////");
+
+
+
     ?>
 
 

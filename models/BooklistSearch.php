@@ -15,7 +15,9 @@ class BooklistSearch extends Booklist
      * {@inheritdoc}
      */
     public $last_name;
+
     public $authors;
+
     public function rules()
     {
         return [

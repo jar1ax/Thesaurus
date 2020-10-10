@@ -1,5 +1,6 @@
 <?php
 
+use kartik\select2\Select2;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
@@ -18,8 +19,22 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
 
-    <?= $form->field($model, 'editableAuthors')->dropDownList(\app\models\Authors::getList(), ['multiple' => true]) ?>
+<!--    --><?//= $form->field($model, 'editableAuthors')->dropDownList(\app\models\Authors::getList(), ['multiple' => true]) ?>
 
+    <?php
+        echo Select2::widget([
+
+                'model' => $model,
+                'name' => 'editableAuthors',
+                'attribute' => 'editableAuthors',
+                'data' =>\app\models\Authors::getList(),
+                'options' => [
+
+                        'placeholder'=>'Выберете автора(-ов)...',
+                        'multiple' => true
+                ]
+        ])
+    ?>
 
 
     <div class="form-group"><table>

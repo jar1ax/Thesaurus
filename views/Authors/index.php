@@ -4,7 +4,6 @@ use yii\bootstrap\Modal;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\helpers\Url;
-//use app\models\Booklist;
 use app\models\AuthorsSearch;
 
 /* @var $this yii\web\View */
@@ -71,17 +70,17 @@ $dataProvider->pagination->pageSize=15;
         ],
     ]); ?>
 
-<!---->
-<!-- --><?//   $this->registerJs("
-//
-//    $('td').click(function (e) {
-//        var id = $(this).closest('tr').data('id');
-//        if(e.target == this)
-//            location.href = '" . Url::to(['authors/view']) . "?id=' + id;
-//
-//    });
-//
-//");?>
+
+ <?   $this->registerJs("
+
+    $('td').click(function (e) {
+        var id = $(this).closest('tr').data('id');
+        if(e.target == this)
+            location.href = '" . Url::to(['authors/view']) . "&id=' + id;
+
+    });
+
+");?>
 
 
 </div>
