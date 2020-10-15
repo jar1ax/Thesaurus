@@ -3,4 +3,5 @@
 3. Install dependencies - run "composer install". <br/>
 4. Create database and set up connection in the ./config/db.php file - change configs dbname, username, password.<br/>
 5. Run migrations using yii/migrate up.<br/>
-6. Run your server.
+6. Import thesaurus.sql into your database.
+7. Run your server.
