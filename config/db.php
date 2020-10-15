@@ -5,7 +5,7 @@ return [
     'dsn' => 'mysql:host=127.0.0.1;dbname=thesaurus',
     //'dsn' => 'mysql:host=localhost;dbname=yii2basic',
     'username' => 'root',
-    'password' => 'jarllax1488_5469',
+    'password' => '',
     'charset' => 'utf8',
 
     // Schema cache options (for production environment)
