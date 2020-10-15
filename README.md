@@ -1,5 +1,4 @@
- <h1>Thesaurus</h1>
- <h2>Library web-site on yii2</h2>
+<h2>Library web-site on yii2</h2>
  <h4>Installation guide</h4>
  <ul>
 <li> Go to your projects folder and clone the project (git clone https://github.com/jar1ax/thesaurus.git ).</li>
