@@ -80,6 +80,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'description:ntext',
             [
                 'attribute'=>'authors',
+                'label'=>'Автор(ы)',
                 'format'=>'html',
 
                 'filter'=> true,

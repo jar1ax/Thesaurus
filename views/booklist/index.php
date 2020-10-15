@@ -84,10 +84,10 @@ $dataProvider->pagination->pageSize=15;
             [
                 'attribute'=>'authors',
                 'format'=>'html',
-
+                'label'=>'Автор(ы)',
                 'filter'=> true,
                 'contentOptions'=>[
-                    'style'=>'text:ntext; white-space: normal;'],
+                    'style'=>'text:ntext; width:150px; white-space: normal;'],
                 'value'=>  function($data) {
                     $str ='';
                     foreach($data['authors'] as $author)
