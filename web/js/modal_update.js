@@ -1,5 +1,5 @@
 $(function(){
-
+    "use strict";
     //Получить клик ивент кнопки апдейт
     $('#modalUpdateButton').click(function () {
         $('#modal_update').modal('show')
