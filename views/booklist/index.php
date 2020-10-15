@@ -108,7 +108,9 @@ $dataProvider->pagination->pageSize=15;
                 'contentOptions' => ['style' => 'width:100px; white-space: normal;'],
 
             ],
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                'template'=>'{view} {delete}'
+                ],
         ],
     ]);
 
