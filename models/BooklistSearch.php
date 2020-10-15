@@ -44,8 +44,8 @@ class BooklistSearch extends Booklist
      */
     public function search($params)
     {
-        $query = Booklist::find()->distinct()->InnerJoinWith('authors')
-        ->orderBy(['authors.last_name'=>SORT_ASC]);
+        $query = Booklist::find()->distinct()->InnerJoinWith('authors');
+//        ->orderBy(['authors.last_name'=>SORT_ASC]);
 
 
 
