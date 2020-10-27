@@ -9,4 +9,4 @@
  <li>Import thesaurus.sql into your database.</li>
  <li>Run your server.</li>
  </ul>
- <p>Project was realized by this task <img src="https://i.imgur.com/TqrRvik.jpg"></p>
+ <p>Project was made according to this task <img src="https://i.imgur.com/TqrRvik.jpg"></p>
